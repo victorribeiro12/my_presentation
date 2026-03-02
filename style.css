@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono&display=swap');
+
+:root {
+    --bg-color: #050505;
+    --card-bg: #0d0d0d;
+    --border-color: rgba(255, 255, 255, 0.05);
+    --text-primary: #ffffff;
+    --text-secondary: #707070;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centralização horizontal total */
+    padding-top: 100px; /* Espaço para o header transparente */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Header Totalmente Transparente */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    background: transparent; /* Fundo invisível */
+    z-index: 1000;
+}
+
+header button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+header button:hover {
+    color: var(--text-primary);
+}
+
+/* Estrutura de Cards Flutuantes */
+.banner, .sobre, .info {
+    width: 100%;
+    max-width: 750px; /* Largura fixa centralizada */
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px; /* Bordas bem arredondadas */
+    margin-bottom: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); /* Efeito flutuante */
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+}
+
+/* Ajuste específico para o Banner */
+.banner {
+    height: 200px;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+}
+
+/* Tipografia e Conteúdo */
+h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+/* Lista de Skills Técnica */
+.info ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.info ul li {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 100px; /* Estilo pílula */
+    transition: all 0.3s ease;
+}
+
+.info ul li:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+/* Botões de Ação Final (Card de Contato) */
+.sobre:last-of-type {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    padding: 30px;
+}
+
+.sobre:last-of-type button {
+    background: var(--text-primary);
+    color: var(--bg-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.sobre:last-of-type button:hover {
+    opacity: 0.8;
+}
+
+/* Classes para animação JavaScript */
+.hidden {
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
