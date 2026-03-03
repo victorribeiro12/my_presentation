@@ -1,77 +1,91 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-    --bg-color: #050505;
-    --card-bg: #0d0d0d;
-    --border-color: rgba(255, 255, 255, 0.05);
+    --bg-main: #000000;
+    --bg-card: #0a0a0a;
     --text-primary: #ffffff;
-    --text-secondary: #707070;
+    --text-secondary: #808080;
+    --text-muted: #404040;
+    --font-sans: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+    --border-subtle: 1px solid #1a1a1a;
+    --header-height: 80px; /* Definimos a altura do header como variável */
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/* IMPORTANTE: Correção para o header fixo não cobrir o conteúdo ao clicar nos botões */
+html {
+    scroll-padding-top: var(--header-height); 
 }
 
 body {
-    background-color: var(--bg-color);
+    background-color: var(--bg-main);
     color: var(--text-primary);
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centralização horizontal total */
-    padding-top: 100px; /* Espaço para o header transparente */
+    font-family: var(--font-sans);
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
 }
 
-/* Header Totalmente Transparente */
+/* Header Transparente e Refinado */
 header {
     position: fixed;
     top: 0;
     width: 100%;
-    height: 80px;
+    height: var(--header-height);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 40px;
-    background: transparent; /* Fundo invisível */
+    background: transparent;
     z-index: 1000;
+    /* Adicionado fundo com blur para melhorar legibilidade ao rolar */
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border-bottom: var(--border-subtle);
 }
 
 header button {
     background: none;
     border: none;
     color: var(--text-secondary);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 header button:hover {
     color: var(--text-primary);
+    transform: translateY(-1px);
 }
 
-/* Estrutura de Cards Flutuantes */
+/* Estrutura dos Cards (Flexível e Centralizada) */
 .banner, .sobre, .info {
-    width: 100%;
-    max-width: 750px; /* Largura fixa centralizada */
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 24px; /* Bordas bem arredondadas */
-    margin-bottom: 24px;
-    padding: 40px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); /* Efeito flutuante */
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+    max-width: 800px;
+    margin: 0 auto 15vh auto; /* Respiro vertical entre seções */
+    background: var(--bg-card);
+    border: var(--border-subtle);
+    border-radius: 20px;
+    padding: 60px;
+    
+    /* Estados iniciais para a animação do JS */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Ajuste específico para o Banner */
+/* Ajuste para o primeiro elemento não ficar colado no topo */
 .banner {
-    height: 200px;
+    margin-top: calc(var(--header-height) + 50px); 
+    height: 300px;
     padding: 0;
     overflow: hidden;
     display: flex;
@@ -83,24 +97,25 @@ header button:hover {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.2;
+    opacity: 0.1; /* Imagem quase invisível, apenas textura */
 }
 
-/* Tipografia e Conteúdo */
+/* Tipografia */
 h2 {
-    font-size: 1.25rem;
+    font-size: 24px;
     font-weight: 600;
-    margin-bottom: 16px;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.5px;
+    margin-bottom: 24px;
+    color: var(--text-primary);
 }
 
 p {
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-size: 15px;
     line-height: 1.8;
 }
 
-/* Lista de Skills Técnica */
+/* Habilidades: Estilo Pílula Minimalista */
 .info ul {
     list-style: none;
     display: flex;
@@ -111,52 +126,49 @@ p {
 
 .info ul li {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 11px;
     color: var(--text-secondary);
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--border-color);
-    border-radius: 100px; /* Estilo pílula */
+    padding: 10px 18px;
+    background: #0d0d0d;
+    border: var(--border-subtle);
+    border-radius: 100px;
     transition: all 0.3s ease;
 }
 
 .info ul li:hover {
     border-color: var(--text-primary);
     color: var(--text-primary);
+    transform: translateY(-2px);
 }
 
-/* Botões de Ação Final (Card de Contato) */
+/* Card de Contato */
 .sobre:last-of-type {
+    text-align: center;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 15px;
-    padding: 30px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 .sobre:last-of-type button {
     background: var(--text-primary);
-    color: var(--bg-color);
+    color: var(--bg-main);
     border: none;
-    padding: 12px 24px;
-    border-radius: 12px;
+    padding: 14px 28px;
+    border-radius: 10px;
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 13px;
     cursor: pointer;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
+    width: 200px;
 }
 
 .sobre:last-of-type button:hover {
-    opacity: 0.8;
+    background: #e0e0e0;
 }
 
-/* Classes para animação JavaScript */
-.hidden {
-    opacity: 0;
-    transform: translateY(40px);
-}
-
+/* CLASSE ATIVADA PELO JAVASCRIPT */
 .show {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1 !important;
+    transform: translateY(0) !important;
 }

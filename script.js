@@ -1,24 +1,51 @@
 document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.banner, .sobre, .info');
-    
-    // Aplicar classe inicial de animação
-    cards.forEach(card => card.classList.add('hidden'));
+    const navButtons = document.querySelectorAll('header button');
 
+    // 1. Mapeamento dos botões para as seções (Baseado na ordem do seu HTML)
+    const sections = [
+        document.querySelector('.banner'), // Inicio
+        document.querySelector('.sobre'),  // Sobre (o primeiro card)
+        document.querySelector('.info'),   // Habilidades
+        document.querySelectorAll('.sobre')[1] // Contato (o último card)
+    ];
+
+    navButtons.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            if (sections[index]) {
+                sections[index].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center' // Garante que o card fique centralizado na tela
+                });
+            }
+        });
+    });
+
+    // 2. Observer para animação de entrada (Fade In)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('show');
-                // Opcional: parar de observar após animar
-                // observer.unobserve(entry.target); 
             } else {
-                // Remove se quiser que a animação aconteça toda vez que subir/descer
                 entry.target.classList.remove('show');
             }
         });
-    }, {
-        threshold: 0.1, // Dispara quando 10% do card está visível
-        rootMargin: "0px 0px -50px 0px" // Trigger um pouco antes de chegar ao centro
-    });
+    }, { threshold: 0.2 });
 
-    cards.forEach(card => observer.observe(card));
+    cards.forEach(card => {
+        card.classList.add('hidden');
+        observer.observe(card);
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.banner, .sobre, .info').forEach(el => observer.observe(el));
 });
